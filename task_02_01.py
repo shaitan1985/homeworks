@@ -1,24 +1,13 @@
-def del_some(chr, s):
-    print(s)
-    for i in chr:
-        print(i)
+def del_some(chars, s):
+    for i in chars:
         if s.find(i):
-            s = ''.join(s.split(i, '')
+            s = ''.join(s.split(i))
+    return s
 
+def is_palindrome(s):
+    s = del_some(' !?,.\'"', s)
+    center = len(s)//2
+    first_part = s[0:center].lower()
+    second_part = s[-1:-center-1:-1].lower()
+    return True if first_part == second_part else False
 
-
-
-# # def is_palindrome(s):
-# #     s = ''.join(s.split(' ', '')
-# #     print(s)
-# #     center = len(s)//2
-# #     first_part = s[0:center]
-# #     second_part = s[-1:-center-1:-1]
-# #     print(second_part)
-# #     print(first_part)
-
-# #     print(first_part == second_part)
-
-# # is_palindrome('Сел в озере березов лес')
-
-del_some(' ,.|', '12,3 4.56  6')
