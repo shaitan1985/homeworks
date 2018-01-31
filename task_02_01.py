@@ -11,4 +11,3 @@ def is_palindrome(s):
     second_part = s[-1:-center-1:-1].lower()
     return True if first_part == second_part else False
 
-print(is_palindrome(49094))
