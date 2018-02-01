@@ -43,4 +43,3 @@ def convert(expr):
 
     return ''.join(outlst).strip()
 
-print(convert("(8+2*5)/(1+3*2-4)")) # "3 4 2 * 1 5 - 2 ^ / +"
