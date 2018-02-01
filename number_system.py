@@ -5,6 +5,7 @@ def all_to_dec(input_str, base):
     ind = 0
     for char in input_str:
         i = ord(char)
+        print(i, char)
         base_in_power = base ** (lens-ind-1)
         if i >= 48 and i <= 57:
             result += (i-48) * base_in_power
@@ -51,17 +52,17 @@ def hex2dec(number): # возвращает int
     return all_to_dec(str(number), 16)
 
 if __name__ == '__main__':
-    mynumber = 250
-    mynumber = dec2bin(mynumber)
-    print(mynumber, type(mynumber))
-    mynumber = bin2dec(mynumber)
-    print(mynumber, type(mynumber))
-    mynumber = dec2oct(mynumber)
-    print(mynumber, type(mynumber))
-    mynumber = oct2dec(mynumber)
-    print(mynumber, type(mynumber))
-    mynumber = dec2hex(mynumber)
-    print(mynumber, type(mynumber))
+    mynumber = '250'
+    # mynumber = dec2bin(mynumber)
+    # print(mynumber, type(mynumber))
+    # mynumber = bin2dec(mynumber)
+    # print(mynumber, type(mynumber))
+    # mynumber = dec2oct(mynumber)
+    # print(mynumber, type(mynumber))
+    # mynumber = oct2dec(mynumber)
+    # print(mynumber, type(mynumber))
+    # mynumber = dec2hex(mynumber)
+    # print(mynumber, type(mynumber))
     mynumber = hex2dec(mynumber)
     print(mynumber, type(mynumber))
 
