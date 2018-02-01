@@ -1,19 +1,11 @@
+PRT = {'^': 3, '*': 2,'/': 2, '+': 1, '-': 1, '(': 0 }
 def same_or_lower(i, top):
-    lv1 = '*/'
-    lv2 = '+-'
-    if i in lv1 and top in lv1:
-        return True
-    elif i in lv2 and top in lv2:
-        return True
-    elif i in lv2 and top in lv1:
-        return True
-    else:
-        return False
+    return True if PRT[i] <= PRT[top] else False
 
 
 def move_stack(i, stack, outlst):
 
-    if not stack or i == '(^':
+    if not stack or i == '(':
         stack.append(i)
     else:
         if i == ')':
@@ -40,13 +32,15 @@ def convert(expr):
     templst = ''.join(expr.split())
     outlst = []
     stack = []
-
     for i in templst:
         if i not in "*/^+-()":
             outlst.append(i + ' ')
         else:
             outlst.append(move_stack(i, stack, outlst))
+
     while stack:
         outlst.append(stack.pop() + ' ')
 
     return ''.join(outlst).strip()
+
+print(convert("(8+2*5)/(1+3*2-4)")) # "3 4 2 * 1 5 - 2 ^ / +"
