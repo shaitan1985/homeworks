@@ -15,6 +15,7 @@ def all_to_dec(input_str, base):
         ind += 1
     return result
 
+
 def dec_to_all(input_int, base):
     result = []
     while input_int:
@@ -24,8 +25,6 @@ def dec_to_all(input_int, base):
         input_int //= base
     result.reverse()
     return ''.join(result).lower()
-
-
 
 
 def dec2bin(number): # возвращает str
