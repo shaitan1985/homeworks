@@ -5,7 +5,6 @@ def all_to_dec(input_str, base):
     ind = 0
     for char in input_str:
         i = ord(char)
-        print(i, char)
         base_in_power = base ** (lens-ind-1)
         if i >= 48 and i <= 57:
             result += (i-48) * base_in_power
