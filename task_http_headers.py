@@ -42,8 +42,9 @@ def http_headers_to_json(source_file, output_file):
 
     out_dict = find_prtcl(first_line)
     for i in lst:
-        tmp_key, tmp_vle = parse_str(i)
-        out_dict[tmp_key] = tmp_vle
+        if i != '\n':
+            tmp_key, tmp_vle = parse_str(i)
+            out_dict[tmp_key] = tmp_vle
     save_to_file(output_file, out_dict)
 
 
