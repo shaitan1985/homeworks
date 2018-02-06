@@ -65,4 +65,8 @@ def calc(expr):
             stack.append(res)
         else:
             stack.append(float(i))
-    return opn
+    return sum(stack)
+
+if __name__ == '__main__':
+    tmp = input()
+    print(calc(tmp))
