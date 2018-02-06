@@ -1,4 +1,3 @@
-from task_rpn import convert
 from operator import (
     add, # +
     sub, # -
