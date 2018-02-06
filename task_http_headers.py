@@ -5,7 +5,7 @@ def find_prtcl(f_str):
     lst = f_str.split()
     if lst[0] == 'GET' or lst[0] == 'POST':
         out_dict['method'] = lst[0]
-        out_dict['url'] = lst[1]
+        out_dict['uri'] = lst[1]
         out_dict['protocol'] = lst[2]
     else:
         out_dict['protocol'] = lst[0]
