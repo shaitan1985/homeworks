@@ -36,9 +36,6 @@ def login_required(func):
     return wrapper
 
 
-
-
-
 @login_required
 def f1():
     print('Функция защищена паролем')
