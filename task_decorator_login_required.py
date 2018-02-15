@@ -44,11 +44,10 @@ def f1():
 @login_required
 def f2():
     print('Эта функция тоже защищена паролем')
-
+if __name__ == '__main__':
+    save_hash('shaitan', '666')
 
 f1()
 f2()
 f1()
 
-if __name__ == '__main__':
-    save_hash('shaitan', '666')
