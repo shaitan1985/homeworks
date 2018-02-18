@@ -1,4 +1,3 @@
-from task_rpn import convert
 from operator import (
     add, # +
     sub, # -
@@ -66,4 +65,8 @@ def calc(expr):
             stack.append(res)
         else:
             stack.append(float(i))
-    return opn
+    return sum(stack)
+
+if __name__ == '__main__':
+    tmp = input()
+    print(calc(tmp))
