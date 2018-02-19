@@ -19,7 +19,7 @@ class Config(object):
 
 
     def storage_init(self):
-        if self._params and self._source not self.storage:
+        if self._params and self._source:
             self._storage = ConfigStorage(self._source, self._params)
 
 
