@@ -40,8 +40,8 @@ class ConfigStorage(object):
     def __init__(self, path, data):
         self.path = source_path
         self.data = data
-        self.savers = { '.txt': lambda data, f: f.write(self.data),
-                        '.json': lambda data, f: json.dump(data, f, indetn=4)
+        self.savers = { '.txt': lambda data, f: f.write(data),
+                        '.json': lambda data, f: json.dump(data, f, indent=4)
         }
         self.loaders = { '.txt': lambda f: f.read(),
                         '.json': lambda f: json.load(f)
