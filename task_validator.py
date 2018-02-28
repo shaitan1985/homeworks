@@ -31,7 +31,7 @@ class Validator(metaclass=ABCMeta):
     @staticmethod
     def get_instance(name):
         klass = Validator.types.get(name)
-        print(Validator.types)
+
         if klass is None:
             raise ValidatorException(
                 'Validator with name "{}" not found'.format(name)
@@ -62,17 +62,17 @@ class DateValidator(Validator):
             "%Y-%m-%d",
             "%Y-%m-%d %H:%M",
             "%Y-%m-%d %H:%M:%S",
-            "%m-%d-%Y",
-            "%m-%d-%Y %H:%M",
-            "%m-%d-%Y %H:%M:%S",
-            "%m/%d/%Y",
-            "%m/%d/%Y %H:%M",
-            "%m/%d/%Y %H:%M:%S",
+            "%d.%m.%Y",
+            "%d.%m.%Y %H:%M",
+            "%d.%m.%Y %H:%M:%S",
+            "%d/%m/%Y",
+            "%d/%m/%Y %H:%M",
+            "%d/%m/%Y %H:%M:%S",
             ]
 
         for mask in masks:
             try:
-                print(datetime.datetime.strptime(value, mask))
+                _ = datetime.datetime.strptime(value, mask)
                 return True
             except ValueError:
                 pass
