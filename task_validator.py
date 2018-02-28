@@ -82,5 +82,3 @@ class DateValidator(Validator):
 Validator.add_type('email', EMailValidator)
 Validator.add_type('datetime', DateValidator)
 
-
-v
