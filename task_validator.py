@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
 import datetime
 
-class ValidatorException(BaseException):
+
+class ValidatorException(Exception):
     pass
 
 
@@ -12,8 +13,10 @@ class Validator(metaclass=ABCMeta):
     def validate(value):
         pass
 
-    @classmethod
-    def add_type(cls, name, klass):
+
+    @staticmethod
+    def add_type(name, klass):
+
         if not name:
             raise ValidatorException(
                 "Validator must have a name!"
@@ -22,13 +25,13 @@ class Validator(metaclass=ABCMeta):
             raise ValidatorException(
                 'Class "{}" is not Validator!'.format(klass)
             )
-        cls.types[name] = klass
+        Validator.types[name] = klass
 
 
-    @classmethod
-    def get_instance(cls, name):
-        klass = cls.types.get(name)
-
+    @staticmethod
+    def get_instance(name):
+        klass = Validator.types.get(name)
+        print(Validator.types)
         if klass is None:
             raise ValidatorException(
                 'Validator with name "{}" not found'.format(name)
@@ -40,6 +43,9 @@ class Validator(metaclass=ABCMeta):
 
 class EMailValidator(Validator):
 
+    # def __init__(self):
+    #     Validator.add_type('datetime', self)
+
     def validate(self, value):
         if value.count('@') == 1:
             return True
@@ -47,6 +53,9 @@ class EMailValidator(Validator):
 
 
 class DateValidator(Validator):
+
+    # def __init__(self):
+    #     Validator.add_type('datetime', self)
 
     def validate(self, value):
         masks = [
@@ -70,8 +79,8 @@ class DateValidator(Validator):
         return False
 
 
-# Validator.add_type('email', EMailValidator)
-# Validator.add_type('date', DateValidator)
+Validator.add_type('email', EMailValidator)
+Validator.add_type('datetime', DateValidator)
 
-# validator = Validator.get_instance('date')
-# validator.validate('1/9/2017 12:00')
+
+v
