@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from time import sleep
+import os
 
 from pony.orm import (
     Database,
@@ -10,7 +11,10 @@ from pony.orm import (
     set_sql_debug, show, db_session, select
 )
 
-
+try:
+    os.remove('estore.sqlite')
+except:
+    pass
 db = Database('sqlite', 'estore.sqlite', create_db=True)
 # db.bind()
 
@@ -119,93 +123,74 @@ with db_session:
         category3 = Category(title='books')
 
 
+clothes = ['t-shirt', 'pants', 'coat']
+technics = ['tv', 'iphone', 'tablet']
+books = [
+    "hitchhiker's guide to the galaxy",
+    'Do Androids Dream of Electric Sheep?',
+    'Player one get ready!'
+]
+prod = {'clothes': clothes,'technics': technics, 'books': books}
+
 with db_session:
     products = select(p for p in Product)[:]
     if not products:
-        category1 = Category.get(title='clothes')
-        product1 = Product(
-            title='t-shirt',
-            price=10.0,
-            categories=category1)
-        product2 = Product(
-            title='pants',
-            price=10.0,
-            categories=category1)
-        product3 = Product(
-            title='coat',
-            price=10.0,
-            categories=category1)
-        category2 = Category.get(title='technics')
-        product1 = Product(
-            title='tv',
-            price=10.0,
-            categories=category2)
-        product2 = Product(
-            title='iphone',
-            price=10.0,
-            categories=category2)
-        product3 = Product(
-            title='tablet',
-            price=10.0,
-            categories=category2)
-        category3 = Category.get(title='books')
-        product1 = Product(
-            title="hitchhiker's guide to the galaxy",
-            price=10.0,
-            categories=category3)
-        product2 = Product(
-            title='Do Androids Dream of Electric Sheep?',
-            price=20.0,
-            categories=category3)
-        product3 = Product(
-            title='Player one get ready!',
-            price=10.0,
-            categories=category3)
+        for key, value in prod.items():
+            category = Category.get(title=key)
+            for item in value:
+                product = Product(
+                    title=item,
+                    price=10.0,
+                    categories=[category])
 
 
 
-
-
-    # customer = Customer[1]
-    # # customer.phone = '+79110016527'
-    # show(customer)
-    # status = Status['In beginning...']
-
-    # sleep(5)
-    #
-    # order = Order(customer=customer,
-    #               status=status)
-    # show(order)
-    #
-    # sleep(5)
-
-    # order = Order(customer=customer,
-    #               status=status)
-    # show(order)
 
 
 with db_session:
-    order = select(o for o in Order)[:]
-    if not order:
-        status = Status['tmp']
-        Customers = select(c for c in Customer)[:]
-        for customer in Customers:
-            order = Order(customer=customer, status=status)
-            order_items = select(oi for oi in OrderItem)[:]
-            if not order_items:
-                cat = Category[1]
-                print(cat)
+    cart = select(o for o in Cart)[:]
+    if not cart:
+        customers = select(c for c in Customer)[:]
+        for customer in customers:
+            cart = Cart(customer=customer)
+            cart_items = select(oi for oi in CartItem)[:]
+            if not cart_items:
+                cat = Category[customers.index(customer)+1]
                 for i in select(p for p in Product if cat in p.categories):
-                    OrderItem(product=i, order=order)
+                    CartItem(product=i, cart=cart)
 
-
-
-tables = [Customer, Category, Product, Order, OrderItem]
-
+tables = [Customer, Category, Product, Cart, CartItem, Order, OrderItem]
 
 @db_session
 def show_all():
     for item in tables:
         show(select(o for o in item))
+
+
+show_all()
+
+print('*********************************')
+
+@db_session
+def move_to_order():
+    for adv_cart in select(c for c in Cart):
+        order = Order(
+            customer=adv_cart.customer,
+            status=Status['tmp'])
+
+        for cart_item in select(c for c in CartItem if c.cart.customer == adv_cart.customer):
+            OrderItem(
+                product=cart_item.product,
+                amount=cart_item.amount,
+                order=order)
+            cart_item.delete()
+        adv_cart.delete()
+
+
+move_to_order()
+
+tables = [Customer, Category, Product, Cart, CartItem, Order, OrderItem]
+
+
 
 show_all()
