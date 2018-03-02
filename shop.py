@@ -8,7 +8,7 @@ from pony.orm import (
     Database,
     Required, Optional, Set, PrimaryKey,
     LongStr,
-    set_sql_debug, show, db_session, select
+    set_sql_debug, show, db_session, select, JOIN
 )
 
 try:
@@ -194,3 +194,4 @@ tables = [Customer, Category, Product, Cart, CartItem, Order, OrderItem]
 
 
 show_all()
+
