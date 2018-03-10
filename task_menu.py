@@ -45,8 +45,7 @@ class Menu():
 
     def __next__(self):
         while self.__copy:
-            for item in self.__copy.popitem():
-                return item
+            return self.__copy.popitem()
         raise StopIteration
 
 
@@ -70,3 +69,5 @@ menu = Menu()
 menu.add_command('show', ShowCommand)
 menu.add_command('list', ListCommand)
 
+for name in menu:
+    print(name)
