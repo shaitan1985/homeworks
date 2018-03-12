@@ -40,18 +40,20 @@ class LinkedList(object):
     def get_by_index(self, index):
         counter = 0
         item = self.head
+
         while item.link is not None:
+            if counter == index:
+                break
             counter += 1
             item = item.link
-            if counter == index:
-                return item
+        return item
 
 
     def insert(self, index, value):
         if index > self.indices:
             self.add(value)
             return
-        item = get_by_index(index-1)
+        item = self.get_by_index(index-1)
         new_item = ListItem(value, item.link)
         item.link = new_item
 
@@ -71,8 +73,16 @@ class LinkedList(object):
 
     def remove_at(self, index):
         if index == 0:
+            value = self.head.data
+            self.head = self.head.link
+        else:
+            prev = get_by_index(index - 1)
+            value = prev.link.data
+            prev.link = prev.link.link
 
-        prev = get_by_index(inde)
+        return value
+
+
 
     def clear(self):
         self.__init__()
@@ -83,6 +93,8 @@ class LinkedList(object):
 
 
     def len(self):
+        if self.head is None:
+            return 0
         return self.indices + 1
 
 
@@ -93,3 +105,6 @@ ll = LinkedList(1, 2, 3, 4, 5)
 
 
 ll.add(6)
+print(ll.get(1))
+ll.insert(1, 10)
+print(ll.get(1))
