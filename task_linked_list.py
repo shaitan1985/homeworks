@@ -83,7 +83,6 @@ class LinkedList(object):
         return value
 
 
-
     def clear(self):
         self.__init__()
 
@@ -101,10 +100,15 @@ class LinkedList(object):
     def is_empty(self):
         return self.head == None
 
-ll = LinkedList(1, 2, 3, 4, 5)
+
+    def __iter__(self):
+        self.copy = self.indices
+        return self
+
+    def __next__(self):
+        while self.copy:
+            self.copy -= 1
+            return self.get_by_index(self.indices - self.copy).data
+        raise StopIteration
 
 
-ll.add(6)
-print(ll.get(1))
-ll.insert(1, 10)
-print(ll.get(1))
