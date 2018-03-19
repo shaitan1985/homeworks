@@ -68,6 +68,3 @@ menu = Menu()
 
 menu.add_command('show', ShowCommand)
 menu.add_command('list', ListCommand)
-
-for name in menu:
-    print(name)
