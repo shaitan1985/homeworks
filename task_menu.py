@@ -36,7 +36,7 @@ class Menu():
             raise CommandException(
                 'Command with name "{}" not found'.format(name)
                 )
-        command(*args, **kwargs).execute()
+        return command(*args, **kwargs).execute()
 
 
     def __iter__(self):
