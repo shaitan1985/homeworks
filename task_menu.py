@@ -70,5 +70,3 @@ menu = Menu()
 menu.add_command('show', ShowCommand)
 menu.add_command('list', ListCommand)
 
-for i in menu:
-    print(i)
