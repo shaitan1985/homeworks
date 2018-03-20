@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from collections import OrderedDict
 
 class CommandException(Exception):
     pass
@@ -14,7 +15,7 @@ class Command(metaclass=ABCMeta):
 class Menu():
 
     def __init__(self):
-        self.__commands = {}
+        self.__commands = OrderedDict()
 
 
     def add_command(self, name, klass):
@@ -40,12 +41,12 @@ class Menu():
 
 
     def __iter__(self):
-        self.__copy = self.__commands.copy()
+        self.__copy = [ i for i in reversed(self.__commands.items())]
         return self
 
     def __next__(self):
         while self.__copy:
-            return self.__copy.popitem()
+            return self.__copy.pop()
         raise StopIteration
 
 
@@ -68,3 +69,6 @@ menu = Menu()
 
 menu.add_command('show', ShowCommand)
 menu.add_command('list', ListCommand)
+
+for i in menu:
+    print(i)
